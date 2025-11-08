@@ -1,18 +1,32 @@
 class Solution {
     public int maxArea(int[] height) {
-        int i=0;
-        int j=height.length-1;
+        // //Brute force
 
-        int max=0;
-        while(i<j){
-            int vol=(j-i)*Math.min(height[i],height[j]);
-            max=Math.max(max,vol);
-            if(height[i]<height[j]){
-                i++;
+        // int maxVal=0;
+        // for(int i=0;i<height.length;i++){
+        //     for(int j=i+1;j<height.length;j++){
+        //         int vol=Math.min(height[i],height[j])*(j-i);
+        //         if(vol>maxVal){
+        //             maxVal=vol;
+        //         }
+        //     }
+        // }
+        // return maxVal;
+
+        //optimal
+
+        int maxVol=0;
+        int left=0;
+        int right=height.length-1;
+        while(left<right){
+            int vol=Math.min(height[left],height[right])*(right-left);
+            maxVol=Math.max(maxVol,vol);
+            if(height[left]<height[right]){
+                left++;
             }else{
-                j--;
+                right--;
             }
         }
-        return max;
+        return maxVol;
     }
 }
