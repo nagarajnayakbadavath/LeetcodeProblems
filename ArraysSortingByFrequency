@@ -1,0 +1,39 @@
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        int arr[]={0,1,0,4,2,0,14,5,1,4};
+        HashMap<Integer,Integer> map=new HashMap<>();
+        
+        for(int i=0;i<arr.length;i++){
+            map.put(arr[i],map.getOrDefault(arr[i],0)+1);
+        }
+        
+        ArrayList<Integer> repeated=new ArrayList<>();
+        ArrayList<Integer> unique=new ArrayList<>();
+        
+        for(Map.Entry<Integer,Integer> entry: map.entrySet()){
+            if(entry.getValue()>1){
+                repeated.add(entry.getKey());
+            }else{
+                unique.add(entry.getKey());
+            }
+        }
+        //3
+        Collections.sort(repeated);
+        Collections.sort(unique);
+        
+        //
+        ArrayList<Integer> result=new ArrayList<>();
+        
+        for(int num:repeated){
+            int count=map.get(num); //2 
+            for(int i=0;i<count;i++){
+                result.add(num);
+            }
+        }
+        
+        result.addAll(unique);
+        
+        System.out.println(result);
+    }
+}
