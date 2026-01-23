@@ -1,9 +1,11 @@
-import java.util.*;
-class Main {
-    public static void main(String[] args) {
-        int arr[]={0,1,0,4,2,0,14,5,1,4};
-        HashMap<Integer,Integer> map=new HashMap<>();
+// User function Template for Java
+
+class Solution {
+    // Function to sort the array according to frequency of elements.
+    public ArrayList<Integer> sortByFreq(int arr[]) {
+        // add your code here
         
+        HashMap<Integer,Integer> map=new HashMap<>();
         for(int i=0;i<arr.length;i++){
             map.put(arr[i],map.getOrDefault(arr[i],0)+1);
         }
@@ -11,29 +13,32 @@ class Main {
         ArrayList<Integer> repeated=new ArrayList<>();
         ArrayList<Integer> unique=new ArrayList<>();
         
-        for(Map.Entry<Integer,Integer> entry: map.entrySet()){
-            if(entry.getValue()>1){
+        for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+            if(map.get(entry.getKey())>1){
                 repeated.add(entry.getKey());
             }else{
                 unique.add(entry.getKey());
             }
         }
-        //3
-        Collections.sort(repeated);
+        
+        Collections.sort(repeated,(a,b)->{
+           if(map.get(b)!=map.get(a)){
+               return map.get(b)-map.get(a);
+           }else{
+               return a-b;
+           }
+        });
+        
         Collections.sort(unique);
         
-        //
         ArrayList<Integer> result=new ArrayList<>();
-        
         for(int num:repeated){
-            int count=map.get(num); //2 
+            int count=map.get(num);
             for(int i=0;i<count;i++){
                 result.add(num);
             }
         }
-        
         result.addAll(unique);
-        
-        System.out.println(result);
+        return result;
     }
 }
